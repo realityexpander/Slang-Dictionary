@@ -14,6 +14,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
                 val state = viewModel.state.value
                 val snackbarHostState = remember { SnackbarHostState() }
                 val focusManager = LocalFocusManager.current
+                val focusRequester = remember { FocusRequester() }
 
                 // Collect UI events from flow
                 LaunchedEffect(key1 = true) {
@@ -48,6 +51,10 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
+                }
+
+                LaunchedEffect(Unit) {
+                    focusRequester.requestFocus()
                 }
 
                 Scaffold(
@@ -72,7 +79,8 @@ class MainActivity : ComponentActivity() {
                             TextField(
                                 value = viewModel.searchQuery.value,
                                 onValueChange = viewModel::onSearch,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth()
+                                    .focusRequester(focusRequester),
                                 placeholder = {
                                     Text(text = "Enter American English slang word...")
                                 },
