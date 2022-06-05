@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,25 +23,27 @@ import kotlinx.coroutines.flow.collectLatest
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             DictionaryTheme {
                 val viewModel: WordInfoViewModel = hiltViewModel()
                 val state = viewModel.state.value
-                val scaffoldState = rememberScaffoldState()
+                val snackbarHostState = remember { SnackbarHostState() }
 
+                // Collect UI events from flow
                 LaunchedEffect(key1 = true) {
                     viewModel.eventFlow.collectLatest { event ->
                         when(event) {
                             is WordInfoViewModel.UIEvent.ShowSnackbar -> {
-                                scaffoldState.snackbarHostState.showSnackbar(
-                                    message = event.message
-                                )
+                                snackbarHostState.showSnackbar(message = event.message,
+                                    duration = SnackbarDuration.Short)
                             }
                         }
                     }
                 }
+
                 Scaffold(
-                    scaffoldState = scaffoldState
+                    scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState),
                 ) {
                     Box(
                         modifier = Modifier
@@ -60,6 +63,16 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
+                            if(state.isError && state.errorMessage != null) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Text(
+                                    text = state.errorMessage,
+                                    modifier = Modifier.fillMaxWidth()
+                                        .wrapContentSize(Alignment.Center),
+                                    color = MaterialTheme.colors.onPrimary,
+                                    style = MaterialTheme.typography.h5
+                                )
+                            }
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize()
                             ) {
@@ -78,6 +91,7 @@ class MainActivity : ComponentActivity() {
                         if(state.isLoading) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                         }
+
                     }
                 }
             }

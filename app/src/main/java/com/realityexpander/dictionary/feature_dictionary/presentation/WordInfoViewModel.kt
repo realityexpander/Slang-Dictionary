@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.realityexpander.dictionary.core.util.Resource
+import com.realityexpander.dictionary.feature_dictionary.domain.model.WordInfo
+import com.realityexpander.dictionary.feature_dictionary.domain.repository.ErrorCode
 import com.realityexpander.dictionary.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -36,24 +38,48 @@ class WordInfoViewModel @Inject constructor(
         _searchQuery.value = query
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(500L)
+            delay(500L) // debounce input
+            if(query.isEmpty()) {
+                _state.value = state.value.copy(
+                    isLoading = false,
+                )
+                return@launch
+            }
+
+            _state.value = state.value.copy(
+                isLoading = true,
+                isError = false,
+                errorMessage = null,
+                errorCode = null,
+            )
+
             getWordInfo(query)
                 .onEach { result ->
                     when(result) {
                         is Resource.Success -> {
                             _state.value = state.value.copy(
                                 wordInfoItems = result.data ?: emptyList(),
-                                isLoading = false
+                                isLoading = false,
+                                isError = false
                             )
                         }
                         is Resource.Error -> {
                             _state.value = state.value.copy(
-                                wordInfoItems = result.data ?: emptyList(),
-                                isLoading = false
+                                wordInfoItems = emptyList<WordInfo>(),
+                                isLoading = false,
+                                isError = true,
+                                errorMessage = result.message,
+                                errorCode = result.errorCode
                             )
-                            _eventFlow.emit(UIEvent.ShowSnackbar(
-                                result.message ?: "Unknown error"
-                            ))
+
+                            // Show snackbar if error is not WORD_NOT_FOUND
+                            if(result.errorCode != ErrorCode.WORD_NOT_FOUND) {
+                                _eventFlow.emit(
+                                    UIEvent.ShowSnackbar(
+                                        result.message ?: "Unknown error"
+                                    )
+                                )
+                            }
                         }
                         is Resource.Loading -> {
                             _state.value = state.value.copy(
