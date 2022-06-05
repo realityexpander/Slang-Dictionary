@@ -5,7 +5,7 @@ import java.lang.reflect.Type
 
 class GsonParser(
     private val gson: Gson
-): JsonParser {
+): JsonParserInterface {
 
     override fun <T> fromJson(json: String, type: Type): T? {
         return gson.fromJson(json, type)

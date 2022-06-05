@@ -2,7 +2,7 @@ package com.realityexpander.dictionary.feature_dictionary.data.util
 
 import java.lang.reflect.Type
 
-interface JsonParser {
+interface JsonParserInterface {
 
     fun <T> fromJson(json: String, type: Type): T?
 

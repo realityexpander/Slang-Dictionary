@@ -9,7 +9,7 @@ import com.realityexpander.dictionary.feature_dictionary.data.local.entity.WordI
     entities = [WordInfoEntity::class],
     version = 1
 )
-@TypeConverters(Converters::class)
+@TypeConverters(Converters::class) // for List<Meaning>
 abstract class WordInfoDatabase: RoomDatabase() {
 
     abstract val dao: WordInfoDao

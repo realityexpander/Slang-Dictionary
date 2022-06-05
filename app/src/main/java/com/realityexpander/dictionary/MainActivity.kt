@@ -26,6 +26,7 @@ import com.realityexpander.dictionary.feature_dictionary.presentation.WordInfoIt
 import com.realityexpander.dictionary.feature_dictionary.presentation.WordInfoViewModel
 import com.realityexpander.dictionary.ui.theme.DictionaryTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -54,6 +55,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 LaunchedEffect(Unit) {
+                    delay(100)
                     focusRequester.requestFocus()
                 }
 
@@ -113,7 +115,7 @@ class MainActivity : ComponentActivity() {
                                     if(i > 0) {
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
-                                    WordInfoItem(wordInfo = wordInfo)
+                                    WordInfoItem(wordInfo = wordInfo, viewModel = viewModel)
                                     if(i < state.wordInfoItems.size - 1) {
                                         Divider()
                                     }

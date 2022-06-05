@@ -1,5 +1,6 @@
 package com.realityexpander.dictionary.feature_dictionary.presentation
 
+import android.media.MediaPlayer
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -9,13 +10,12 @@ import com.realityexpander.dictionary.feature_dictionary.domain.model.WordInfo
 import com.realityexpander.dictionary.feature_dictionary.domain.repository.ErrorCode
 import com.realityexpander.dictionary.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import java.net.URL
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +33,8 @@ class WordInfoViewModel @Inject constructor(
     val eventFlow = _eventFlow.asSharedFlow()
 
     private var searchJob: Job? = null
+
+    val mediaPlayer = MediaPlayer()
 
     fun onSearch(query: String) {
         _searchQuery.value = query
@@ -96,5 +98,16 @@ class WordInfoViewModel @Inject constructor(
 
     sealed class UIEvent {
         data class ShowSnackbar(val message: String): UIEvent()
+    }
+
+    fun playAudio(url: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                mediaPlayer.reset()
+                mediaPlayer.setDataSource(URL(url).toString())
+                mediaPlayer.prepare()
+                mediaPlayer.start()
+            }
+        }
     }
 }
