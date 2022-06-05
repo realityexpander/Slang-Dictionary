@@ -1,7 +1,7 @@
 # Slang-Dictionary
 American Slang Dictionary app using CLEAN architecture, MVVM, Use Cases, GSON, Retrofit, Compose, Room with caching, Hilt Dependency Injection
 
-API from dictionaryapi.dev
+API from [dictionaryapi.dev](https://dictionaryapi.dev)
 
 [<img src="https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png)
 [<img src="https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png)
