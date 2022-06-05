@@ -56,7 +56,7 @@ class WordInfoViewModel @Inject constructor(
             )
 
             getWordInfo(query)
-                .onEach { result ->
+                .onEach { result -> // flow collected here
                     when(result) {
                         is Resource.Success -> {
                             _state.value = state.value.copy(
