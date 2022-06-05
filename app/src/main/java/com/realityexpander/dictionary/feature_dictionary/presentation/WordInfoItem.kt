@@ -28,7 +28,9 @@ fun WordInfoItem(
             color = colors.onPrimary,
             style = MaterialTheme.typography.h4
         )
-        Text(text = wordInfo.phonetic, fontWeight = FontWeight.Light)
+        if(wordInfo.phonetic.isNotEmpty()) {
+            Text(text = wordInfo.phonetic, fontWeight = FontWeight.Light)
+        }
         Spacer(modifier = Modifier.height(16.dp))
         // Text(text = "Origin: " + wordInfo.origin) // API doesn't provide origin
 
