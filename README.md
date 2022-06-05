@@ -1,9 +1,11 @@
 # Slang-Dictionary
-American Slang Dictionary app using CLEAN architecture, MVVM, Use Cases, GSON, Retrofit, Compose, Room with caching, Hilt Dependency Injection, API from dictionaryapi.dev
+American Slang Dictionary app using CLEAN architecture, MVVM, Use Cases, GSON, Retrofit, Compose, Room with caching, Hilt Dependency Injection
 
-[<img src="https://user-images.githubusercontent.com/5157474/172029910-e6c7fc81-7bf6-48e3-954c-4dc7ed8ef5cf.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172029910-e6c7fc81-7bf6-48e3-954c-4dc7ed8ef5cf.png)
-[<img src="https://user-images.githubusercontent.com/5157474/172029917-787daa35-8fc8-41da-a811-6db635fe36df.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172029917-787daa35-8fc8-41da-a811-6db635fe36df.png)
-[<img src="https://user-images.githubusercontent.com/5157474/172029922-b5f6a748-4dc7-4d82-bd3f-dab8f2dbaeef.png" width="275"/>](https://user-images.githubusercontent.com/5157474/172029922-b5f6a748-4dc7-4d82-bd3f-dab8f2dbaeef.png)
+API from dictionaryapi.dev
+
+[<img src="https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png)
+[<img src="https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png)
+
 
 - Allows users to search for American Slang and regular words
 - Automatically caches words locally for use off-line
