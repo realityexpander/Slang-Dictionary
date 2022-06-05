@@ -1,24 +1,27 @@
 package com.realityexpander.dictionary.feature_dictionary.presentation
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Arrangement.Top
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference
 import com.realityexpander.dictionary.feature_dictionary.domain.model.WordInfo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.net.URL
 
 @Composable
 fun WordInfoItem(
@@ -28,8 +31,7 @@ fun WordInfoItem(
 ) {
 
     Column(modifier = modifier) {
-        Row() {
-            Row(modifier = Modifier.align(CenterVertically)) {
+            Row(verticalAlignment =  Alignment.CenterVertically) {
                 Text(
                     text = wordInfo.word,
                     fontSize = 24.sp,
@@ -45,11 +47,10 @@ fun WordInfoItem(
                     }
                 }
             }
-        }
         if (wordInfo.phonetic.isNotEmpty()) {
             Text(text = wordInfo.phonetic, fontWeight = FontWeight.Light)
+            Spacer(modifier = Modifier.height(16.dp))
         }
-        Spacer(modifier = Modifier.height(16.dp))
         // Text(text = "Origin: " + wordInfo.origin) // API doesn't provide origin
 
         wordInfo.meanings.forEach { meaning ->
