@@ -24,21 +24,12 @@ class WordInfoRepositoryImpl(
 
         try {
             val remoteWordInfos = api.getWordInfo(word)
-            println(remoteWordInfos)
+            // println(remoteWordInfos) // leave for debug
 
             dao.deleteWordInfos(remoteWordInfos.map { it.word })
             dao.insertWordInfos(remoteWordInfos.map { it.toWordInfoEntity() })
-
-            val newWordInfos = dao.getWordInfos(word).map { it.toWordInfo() }
-            emit(Resource.Success(newWordInfos))
         } catch (e: HttpException) {
-            if (e.code() == ErrorCode.WORD_NOT_FOUND.code) {
-                emit(Resource.Error(
-                    message = "Definition not found.",
-                    data = emptyList<WordInfo>(),
-                    errorCode = ErrorCode.WORD_NOT_FOUND)
-                )
-            } else {
+            if (e.code() != ErrorCode.WORD_NOT_FOUND.code) {
                 emit(
                     Resource.Error(
                         message = "Oops, something went wrong!",
@@ -61,6 +52,19 @@ class WordInfoRepositoryImpl(
                     data = wordInfos
                 )
             )
+        } finally {
+            val newWordInfos = dao.getWordInfos(word).map { it.toWordInfo() }
+
+            // Word was not found from API *AND* it was not found from DB
+            if(newWordInfos.isEmpty()) {
+                emit(Resource.Error(
+                    message = "Definition not found.",
+                    data = emptyList<WordInfo>(),
+                    errorCode = ErrorCode.WORD_NOT_FOUND)
+                )
+            } else {
+                emit(Resource.Success(data = newWordInfos))
+            }
         }
 
     }
