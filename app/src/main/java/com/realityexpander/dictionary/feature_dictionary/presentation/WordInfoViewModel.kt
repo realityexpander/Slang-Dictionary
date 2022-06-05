@@ -42,10 +42,12 @@ class WordInfoViewModel @Inject constructor(
             if(query.isEmpty()) {
                 _state.value = state.value.copy(
                     isLoading = false,
+                    isError = false,
                 )
                 return@launch
             }
 
+            // Set loading state
             _state.value = state.value.copy(
                 isLoading = true,
                 isError = false,
