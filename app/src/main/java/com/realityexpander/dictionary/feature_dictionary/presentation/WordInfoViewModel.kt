@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.realityexpander.dictionary.core.util.Resource
+import com.realityexpander.dictionary.core.util.lettersOnly
 import com.realityexpander.dictionary.feature_dictionary.domain.repository.ErrorCode
 import com.realityexpander.dictionary.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -119,5 +120,3 @@ class WordInfoViewModel @Inject constructor(
         }
     }
 }
-
-private fun String.lettersOnly(): String = this.filter { it.isLetter() }

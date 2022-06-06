@@ -12,7 +12,7 @@ data class WordInfoEntity(
     val origin: String,
     val meanings: List<Meaning>,  // uses the TypeConverter
     val audio: String,
-    @PrimaryKey val id: Int? = null
+    @PrimaryKey val id: Int? = null  // autoincrement by default
 ) {
     fun toWordInfo(): WordInfo {
         return WordInfo(
