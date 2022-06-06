@@ -41,7 +41,7 @@ class WordInfoViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L) // debounce input
-            if(query.isEmpty()) {
+            if(query.trim().isEmpty()) {
                 _state.value = state.value.copy(
                     isLoading = false,
                     isError = false,
@@ -57,7 +57,7 @@ class WordInfoViewModel @Inject constructor(
                 errorCode = null,
             )
 
-            getWordInfo(query)
+            getWordInfo(query.trim())
                 .onEach { result -> // flow collected here
                     when(result) {
                         is Resource.Success -> {
