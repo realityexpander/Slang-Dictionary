@@ -13,7 +13,8 @@ API from [dictionaryapi.dev](https://dictionaryapi.dev)
 
 ## Tech Employed
 - List of words is cached locally in a `Room` database
-- Uses custom query for `Room` database
+- Uses custom text search query for `Room` database
+- Uses custom Type Converters for `Room` that allow for simplified database schema
 - Shows proper use of `Dagger-Hilt` & SOLID & CLEAN architecture
 - Uses compose for view layer, `ViewModel` and `mutableState` to send UI events
 - Uses Flow for API, UI & Database events
