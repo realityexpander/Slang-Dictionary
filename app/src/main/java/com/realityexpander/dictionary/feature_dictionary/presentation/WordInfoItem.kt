@@ -1,6 +1,5 @@
 package com.realityexpander.dictionary.feature_dictionary.presentation
 
-import androidx.compose.foundation.layout.Arrangement.Top
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,13 +13,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.solver.state.helpers.AlignVerticallyReference
 import com.realityexpander.dictionary.feature_dictionary.domain.model.WordInfo
 
 @Composable

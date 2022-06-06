@@ -15,7 +15,7 @@ data class WordInfoDto(
             meanings = meanings.map { it.toMeaning() },
             origin = origin ?: "Unknown",
             phonetic = phonetic ?:
-                (phonetics.find { it.text != null }?.text
+                (phonetics.find { it.text != null }?.text // try to find a valid mp3 clip
                 ?: ""),
             audio = phonetics.find { it.audio != "" }?.audio ?: "",
             word = word

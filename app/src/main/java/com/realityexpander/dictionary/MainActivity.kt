@@ -11,6 +11,8 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
                 val snackbarHostState = remember { SnackbarHostState() }
                 val focusManager = LocalFocusManager.current
                 val focusRequester = remember { FocusRequester() }
+                val firstTime = remember { mutableStateOf<Boolean?>(null) }
 
                 // Collect UI events from flow
                 LaunchedEffect(key1 = true) {
@@ -54,9 +57,17 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
-                LaunchedEffect(Unit) {
-                    delay(100)
-                    focusRequester.requestFocus()
+                // Focus the TextField when the activity starts
+                LaunchedEffect(firstTime.value) {
+                    if(firstTime.value == null) {
+                        firstTime.value = true
+                    }
+                }
+                SideEffect {
+                    if (firstTime.value == true) {
+                        firstTime.value = false
+                        focusRequester.requestFocus()
+                    }
                 }
 
                 Scaffold(
@@ -81,7 +92,8 @@ class MainActivity : ComponentActivity() {
                             TextField(
                                 value = viewModel.searchQuery.value,
                                 onValueChange = viewModel::onSearch,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
                                     .focusRequester(focusRequester),
                                 placeholder = {
                                     Text(text = "Enter American English slang word...")
