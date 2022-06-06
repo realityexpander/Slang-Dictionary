@@ -10,7 +10,7 @@ data class WordInfoEntity(
     val word: String,
     val phonetic: String,
     val origin: String,
-    val meanings: List<Meaning>,
+    val meanings: List<Meaning>,  // uses the TypeConverter
     val audio: String,
     @PrimaryKey val id: Int? = null
 ) {
