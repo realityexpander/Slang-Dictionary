@@ -41,7 +41,7 @@ class WordInfoViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L) // debounce input
-            if(query.trim().isEmpty()) {
+            if (query.trim().isEmpty()) {
                 _state.value = state.value.copy(
                     isLoading = false,
                     isError = false,
@@ -59,7 +59,7 @@ class WordInfoViewModel @Inject constructor(
 
             getWordInfo(query.trim())
                 .onEach { result -> // flow collected here
-                    when(result) {
+                    when (result) {
                         is Resource.Success -> {
                             _state.value = state.value.copy(
                                 wordInfoItems = result.data ?: emptyList(),
@@ -77,7 +77,7 @@ class WordInfoViewModel @Inject constructor(
                             )
 
                             // Show snackbar if error is not WORD_NOT_FOUND
-                            if(result.errorCode != ErrorCode.WORD_NOT_FOUND) {
+                            if (result.errorCode != ErrorCode.WORD_NOT_FOUND) {
                                 _eventFlow.emit(
                                     UIEvent.ShowSnackbar(
                                         result.message ?: "Unknown error"
@@ -97,16 +97,23 @@ class WordInfoViewModel @Inject constructor(
     }
 
     sealed class UIEvent {
-        data class ShowSnackbar(val message: String): UIEvent()
+        data class ShowSnackbar(val message: String) : UIEvent()
     }
 
     fun playAudio(url: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                mediaPlayer.reset()
-                mediaPlayer.setDataSource(URL(url).toString())
-                mediaPlayer.prepare()
-                mediaPlayer.start()
+                try {
+                    mediaPlayer.reset()
+                    mediaPlayer.setDataSource(URL(url).toString())
+                    mediaPlayer.prepare()
+                    mediaPlayer.start()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    UIEvent.ShowSnackbar("Error playing audio").let {
+                        _eventFlow.emit(it)
+                    }
+                }
             }
         }
     }
