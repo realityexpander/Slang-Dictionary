@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.realityexpander.dictionary.core.util.Resource
-import com.realityexpander.dictionary.feature_dictionary.domain.model.WordInfo
 import com.realityexpander.dictionary.feature_dictionary.domain.repository.ErrorCode
 import com.realityexpander.dictionary.feature_dictionary.domain.use_case.GetWordInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,10 +37,12 @@ class WordInfoViewModel @Inject constructor(
 
     fun onSearch(query: String) {
         _searchQuery.value = query
+        val cleanQuery = query.trim().lettersOnly()
         searchJob?.cancel()
+
         searchJob = viewModelScope.launch {
             delay(500L) // debounce input
-            if (query.trim().isEmpty()) {
+            if (cleanQuery.isEmpty()) {
                 _state.value = state.value.copy(
                     isLoading = false,
                     isError = false,
@@ -57,7 +58,7 @@ class WordInfoViewModel @Inject constructor(
                 errorCode = null,
             )
 
-            getWordInfo(query.trim())
+            getWordInfo(cleanQuery)
                 .onEach { result -> // flow collected here
                     when (result) {
                         is Resource.Success -> {
@@ -118,3 +119,5 @@ class WordInfoViewModel @Inject constructor(
         }
     }
 }
+
+private fun String.lettersOnly(): String = this.filter { it.isLetter() }
