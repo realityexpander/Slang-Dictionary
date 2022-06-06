@@ -3,8 +3,9 @@ American Slang Dictionary app using CLEAN architecture, MVVM, Use Cases, GSON, R
 
 API from [dictionaryapi.dev](https://dictionaryapi.dev)
 
-[<img src="https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png)
+[<img src="https://user-images.githubusercontent.com/5157474/172096461-0d6f8acb-7537-4f0e-98f1-5514d63c92ed.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172096461-0d6f8acb-7537-4f0e-98f1-5514d63c92ed.png)
 [<img src="https://user-images.githubusercontent.com/5157474/172085035-40eda1ce-4321-48ee-9fbe-41f02275d3ba.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172085035-40eda1ce-4321-48ee-9fbe-41f02275d3ba.png)
+
 
 - Allows user to search for American Slang and regular words
 - Automatically caches words locally for use off-line
