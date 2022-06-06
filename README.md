@@ -9,7 +9,7 @@ API from [dictionaryapi.dev](https://dictionaryapi.dev)
 
 - Allows user to search for American Slang and regular words
 - Automatically caches words locally for use off-line
-- Allows user to play audio clip of pronounciation
+- Allows user to play audio clip of pronounciation (online only)
 
 ---- Tech used ----
 - List of words is cached locally in a `Room` database
