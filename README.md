@@ -4,11 +4,11 @@ American Slang Dictionary app using CLEAN architecture, MVVM, Use Cases, GSON, R
 API from [dictionaryapi.dev](https://dictionaryapi.dev)
 
 [<img src="https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042174-430b0139-9e4f-46dd-ba0b-39912a642d7c.png)
-[<img src="https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172042182-7295e6a5-c2ab-40bd-8493-23230747d43e.png)
+[<img src="https://user-images.githubusercontent.com/5157474/172085035-40eda1ce-4321-48ee-9fbe-41f02275d3ba.png" width="325"/>](https://user-images.githubusercontent.com/5157474/172085035-40eda1ce-4321-48ee-9fbe-41f02275d3ba.png)
 
-
-- Allows users to search for American Slang and regular words
+- Allows user to search for American Slang and regular words
 - Automatically caches words locally for use off-line
+- Allows user to play audio clip of pronounciation
 
 ---- Tech used ----
 - List of words is cached locally in a `Room` database
@@ -17,7 +17,8 @@ API from [dictionaryapi.dev](https://dictionaryapi.dev)
 - Uses compose for view layer, `ViewModel` and `mutableState` to send UI events
 - Uses Flow for API, UI & Database events
 - Uses Resource sealed class to handle errors and messaging
-- Custom tap event handling to hide keyboard
+- Custom tap event handling to hide keyboard\
+- MediaPlayer to stream mp3 of audio pronounciation
 
 To install the Apk:
 
