@@ -5,8 +5,8 @@ import com.realityexpander.dictionary.feature_dictionary.data.local.entity.WordI
 
 data class WordInfoDto(
     val meanings: List<MeaningDto>,
-    val origin: String,
-    val phonetic: String,
+    val origin: String?,
+    val phonetic: String?,
     val phonetics: List<PhoneticDto>,
     val word: String
 ) {
@@ -14,7 +14,9 @@ data class WordInfoDto(
         return WordInfoEntity(
             meanings = meanings.map { it.toMeaning() },
             origin = origin ?: "Unknown",
-            phonetic = phonetic ?: "",
+            phonetic = phonetic ?:
+                (phonetics.find { it.text != null }?.text
+                ?: ""),
             audio = phonetics.find { it.audio != "" }?.audio ?: "",
             word = word
         )
