@@ -11,7 +11,7 @@ API from [dictionaryapi.dev](https://dictionaryapi.dev)
 - Automatically caches words locally for use off-line
 - Allows user to play audio clip of pronounciation (online only)
 
----- Tech used ----
+## Tech Employed
 - List of words is cached locally in a `Room` database
 - Uses custom query for `Room` database
 - Shows proper use of `Dagger-Hilt` & SOLID & CLEAN architecture
