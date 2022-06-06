@@ -19,6 +19,7 @@ class WordInfoRepositoryImpl(
     override fun getWordInfo(word: String): Flow<Resource<List<WordInfo>>> = flow {
         emit(Resource.Loading(data = emptyList<WordInfo>()))
 
+        // Get word from the local database (if exists)
         val wordInfos = dao.getWordInfos(word).map { it.toWordInfo() }
         emit(Resource.Loading(data = wordInfos))
 
@@ -53,6 +54,7 @@ class WordInfoRepositoryImpl(
                 )
             )
         } finally {
+            // Get newly api-fetched word from the local database (using SSOT)
             val newWordInfos = dao.getWordInfos(word).map { it.toWordInfo() }
 
             // Word was not found from API *AND* it was not found from DB

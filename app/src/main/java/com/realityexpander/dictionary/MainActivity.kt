@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.realityexpander.dictionary.feature_dictionary.domain.repository.ErrorCode
 import com.realityexpander.dictionary.feature_dictionary.presentation.WordInfoItem
 import com.realityexpander.dictionary.feature_dictionary.presentation.WordInfoViewModel
 import com.realityexpander.dictionary.ui.theme.DictionaryTheme
@@ -110,7 +111,12 @@ class MainActivity : ComponentActivity() {
                                 ),
                             )
                             Spacer(modifier = Modifier.height(16.dp))
-                            if (state.isError && state.errorMessage != null) {
+
+                            // Show error only if there are no wordInfos from the database & api
+                            if (state.isError &&
+                                state.errorMessage != null &&
+                                state.wordInfoItems.isEmpty()
+                            ) {
                                 Spacer(modifier = Modifier.height(16.dp))
                                 Text(
                                     text = state.errorMessage,

@@ -69,7 +69,7 @@ class WordInfoViewModel @Inject constructor(
                         }
                         is Resource.Error -> {
                             _state.value = state.value.copy(
-                                wordInfoItems = emptyList<WordInfo>(),
+                                wordInfoItems = result.data ?: emptyList(),
                                 isLoading = false,
                                 isError = true,
                                 errorMessage = result.message,
